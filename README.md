@@ -137,7 +137,7 @@ The subject list is based on the actual **TUAS ICT first-year curriculum**:
 
 ##  License
 
-This project is created for educational purposes at **Turku University of Applied Sciences**. Feel free to use, modify, and share with fellow students.
+This project is created for educational purposes at **Turku University of Applied Sciences**. Feel free to use, and share with fellow students.
 
 **© 2024 TUAS ICT Student Project**
 
@@ -145,7 +145,7 @@ This project is created for educational purposes at **Turku University of Applie
 
 ##  Contact
 
-**Created by:** [Ruwan Gammanage]
+**Created by:** Ruwan Gammanage
 -  Email: ruwan.gammanage@edu.turkuamk.fi
 -  Student: ICT Engineering, Turku University of Applied Sciences
 -  GitHub: [@ruwanfer](https://github.com/ruwanfer)
