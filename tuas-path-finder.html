@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TUAS ICT Competence Path Finder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+
+        .badge {
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .input-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .section h2 {
+            color: #444;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h2 span {
+            font-size: 1.5em;
+        }
+
+        .section.highlight {
+            border: 3px solid #ff6b6b;
+            background: #fff9f9;
+        }
+
+        .weight-info {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            text-align: center;
+            font-weight: 600;
+            color: #1976d2;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .input-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .input-item label {
+            font-size: 0.9em;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .input-item input {
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95em;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .input-item input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+
+        .input-item input:hover {
+            border-color: #ff6b6b;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            color: white;
+            flex: 2;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            background: #4a5568;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-reset:hover {
+            background: #2d3748;
+            transform: translateY(-2px);
+        }
+
+        .results-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .results-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .result-card.high-match {
+            border-left-color: #48c774;
+            background: linear-gradient(to right, #ffffff, #f0fff4);
+        }
+
+        .result-card.medium-match {
+            border-left-color: #fdcb6e;
+        }
+
+        .result-card.low-match {
+            border-left-color: #ff6b6b;
+        }
+
+        .path-name {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .match-percentage {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+
+        .high-match .match-percentage {
+            color: #48c774;
+        }
+
+        .breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breakdown-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .breakdown-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .input-sections {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8em;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 TUAS ICT Competence Path Finder</h1>
+        <div class="subtitle">
+            <p>Turku University of Applied Sciences - Find your ideal specialization based on your <strong>first-year grades</strong>, interests, and knowledge</p>
+            <div class="badge">⭐ 70% Based on Your Subject Grades ⭐</div>
+        </div>
+
+        <div class="input-sections">
+            <!-- First Year Subjects Section - HIGHLIGHTED as most important -->
+            <div class="section highlight">
+                <h2>
+                    <span>📚</span> First Year Subjects (70% of decision)
+                    <span class="tooltip">ⓘ
+                        <span class="tooltiptext">YOUR GRADES MATTER MOST! These are 70% of your recommendation</span>
+                    </span>
+                </h2>
+                <div class="weight-info">Enter your actual grades from 1-5 (5 = excellent)</div>
+                <div class="input-grid" id="subjects-container"></div>
+            </div>
+
+            <!-- Personal Interests Section -->
+            <div class="section">
+                <h2>
+                    <span>💡</span> Personal Interests (15%)
+                    <span class="tooltip">ⓘ
+                        <span class="tooltiptext">How interested are you in each area? (1-5)</span>
+                    </span>
+                </h2>
+                <div class="input-grid" id="interests-container"></div>
+            </div>
+
+            <!-- Technical Knowledge Section -->
+            <div class="section">
+                <h2>
+                    <span>🔧</span> Technical Knowledge (15%)
+                    <span class="tooltip">ⓘ
+                        <span class="tooltiptext">Rate your current knowledge in each skill (1-5)</span>
+                    </span>
+                </h2>
+                <div class="input-grid" id="knowledge-container"></div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="calculateMatches()">
+                <span>🎯</span> Find My Best Path (70% Based on Grades)
+            </button>
+            <button class="btn btn-secondary" onclick="setAverageRatings()">
+                <span>📊</span> Set Average (3)
+            </button>
+            <button class="btn btn-reset" onclick="resetAll()">
+                <span>🔄</span> Reset All
+            </button>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="results-section" style="display: none;">
+            <h2>
+                <span>🏆</span> Your Top Path Recommendations (Based 70% on Your Grades)
+            </h2>
+            <div class="results-grid" id="results-container"></div>
+        </div>
+
+        <div class="footer">
+            <p>Created for TUAS ICT Students | First-year subjects from actual curriculum</p>
+            <p><small>⚠️ Recommendations are 70% based on your subject grades + 30% interests/knowledge</small></p>
+        </div>
+    </div>
+
+    <script>
+        // CORRECTED First Year Subjects based on TUAS curriculum
+        const subjects = [
+            "Mathematics (General)",
+            "Calculus",
+            "Engineering Precalculus",
+            "Topics in Applied Mathematics",
+            "Measurement in Physics",
+            "Engineering Physics",
+            "Introduction to Electronics",
+            "Introduction to Programming",
+            "Databases",
+            "Git Basics",
+            "Low-Code Software Development",
+            "Introduction to IT",
+            "Project Work Basics"
+        ];
+
+        const interests = [
+            "Working with data & analytics",
+            "Building websites/web apps",
+            "Creating mobile apps",
+            "Game design & development",
+            "Hardware/electronics",
+            "Healthcare technology",
+            "Network & security",
+            "Cloud computing",
+            "AI/Machine Learning",
+            "Internet of Things (IoT)",
+            "Robotics & automation",
+            "VR/AR",
+            "Working in teams",
+            "Leading projects",
+            "Creative/artistic work",
+            "Research & problem-solving",
+            "Customer-facing work",
+            "Working independently",
+            "Teaching/mentoring",
+            "Startup/entrepreneurship",
+            "Gaming industry",
+            "Healthcare/medical field",
+            "Finance/banking",
+            "Industrial/manufacturing",
+            "Entertainment/media",
+            "Education technology",
+            "Environmental/sustainability",
+            "Telecommunications"
+        ];
+
+        const knowledge = [
+            "Python",
+            "JavaScript/TypeScript",
+            "Java",
+            "C#",
+            "C/C++",
+            "SQL",
+            "HTML/CSS",
+            "PHP",
+            "Swift (iOS)",
+            "Kotlin (Android)",
+            "R (Statistics)",
+            "Assembly",
+            "React/Angular/Vue",
+            "Node.js",
+            ".NET Framework",
+            "Django/Flask",
+            "Spring Boot",
+            "Unity/Unreal",
+            "TensorFlow/PyTorch",
+            "Docker/Kubernetes",
+            "Git/GitHub",
+            "Jira/PM tools",
+            "Linux/Unix",
+            "Arduino/Raspberry Pi",
+            "Algorithms & Data Structures",
+            "Object-Oriented Programming",
+            "Functional Programming",
+            "Database Design",
+            "API Design/REST",
+            "Microservices",
+            "Cloud Services (AWS/Azure/GCP)",
+            "Cybersecurity",
+            "Network Protocols",
+            "Operating Systems",
+            "Mobile Development",
+            "Web Development",
+            "UI/UX Design",
+            "Testing/QA",
+            "Agile/Scrum",
+            "System Architecture",
+            "Real-time Systems",
+            "Embedded Systems",
+            "Signal Processing",
+            "Computer Graphics",
+            "Data Visualization",
+            "Big Data Technologies",
+            "Statistics & Probability",
+            "Linear Algebra",
+            "Discrete Mathematics"
+        ];
+
+        // Initialize all inputs with default value 3
+        function initializeInputs() {
+            // Subjects
+            let subjectsHtml = '';
+            subjects.forEach(s => {
+                subjectsHtml += `
+                    <div class="input-item">
+                        <label for="subj_${s.replace(/\s+/g, '_')}">${s}</label>
+                        <input type="number" min="1" max="5" value="3" id="subj_${s.replace(/\s+/g, '_')}">
+                    </div>
+                `;
+            });
+            document.getElementById('subjects-container').innerHTML = subjectsHtml;
+
+            // Interests
+            let interestsHtml = '';
+            interests.forEach(i => {
+                interestsHtml += `
+                    <div class="input-item">
+                        <label for="int_${i.replace(/\s+/g, '_')}">${i}</label>
+                        <input type="number" min="1" max="5" value="3" id="int_${i.replace(/\s+/g, '_')}">
+                    </div>
+                `;
+            });
+            document.getElementById('interests-container').innerHTML = interestsHtml;
+
+            // Knowledge
+            let knowledgeHtml = '';
+            knowledge.forEach(k => {
+                knowledgeHtml += `
+                    <div class="input-item">
+                        <label for="know_${k.replace(/\s+/g, '_')}">${k}</label>
+                        <input type="number" min="1" max="5" value="3" id="know_${k.replace(/\s+/g, '_')}">
+                    </div>
+                `;
+            });
+            document.getElementById('knowledge-container').innerHTML = knowledgeHtml;
+        }
+
+        // Set all values to 3 (average)
+        function setAverageRatings() {
+            document.querySelectorAll('input[type="number"]').forEach(input => {
+                input.value = 3;
+            });
+        }
+
+        // Reset all to empty
+        function resetAll() {
+            document.querySelectorAll('input[type="number"]').forEach(input => {
+                input.value = '';
+            });
+            document.getElementById('results-section').style.display = 'none';
+        }
+
+        // Get all current values
+        function getCurrentValues() {
+            const data = {
+                subjects: {},
+                interests: {},
+                knowledge: {}
+            };
+
+            subjects.forEach(s => {
+                const id = `subj_${s.replace(/\s+/g, '_')}`;
+                const value = document.getElementById(id)?.value;
+                data.subjects[s] = value ? parseFloat(value) : 3;
+            });
+
+            interests.forEach(i => {
+                const id = `int_${i.replace(/\s+/g, '_')}`;
+                const value = document.getElementById(id)?.value;
+                data.interests[i] = value ? parseFloat(value) : 3;
+            });
+
+            knowledge.forEach(k => {
+                const id = `know_${k.replace(/\s+/g, '_')}`;
+                const value = document.getElementById(id)?.value;
+                data.knowledge[k] = value ? parseFloat(value) : 3;
+            });
+
+            return data;
+        }
+
+        // Calculate matches based on comprehensive ratings
+        function calculateMatches() {
+            const studentData = getCurrentValues();
+            
+            // Define paths with updated subject weights including physics and electronics
+            const paths = [
+                {
+                    name: "Data Engineering and AI",
+                    subjects: {
+                        "Mathematics (General)": 5,
+                        "Calculus": 5,
+                        "Engineering Precalculus": 4,
+                        "Topics in Applied Mathematics": 5,
+                        "Measurement in Physics": 2,
+                        "Engineering Physics": 2,
+                        "Introduction to Electronics": 1,
+                        "Introduction to Programming": 5,
+                        "Databases": 5,
+                        "Git Basics": 3,
+                        "Low-Code Software Development": 1,
+                        "Introduction to IT": 2,
+                        "Project Work Basics": 3
+                    },
+                    interests: {
+                        "Working with data & analytics": 5,
+                        "Building websites/web apps": 2,
+                        "Creating mobile apps": 1,
+                        "Game design & development": 1,
+                        "Hardware/electronics": 1,
+                        "Healthcare technology": 3,
+                        "Network & security": 2,
+                        "Cloud computing": 5,
+                        "AI/Machine Learning": 5,
+                        "Internet of Things (IoT)": 3,
+                        "Robotics & automation": 2,
+                        "VR/AR": 1,
+                        "Working in teams": 4,
+                        "Leading projects": 3,
+                        "Creative/artistic work": 1,
+                        "Research & problem-solving": 5,
+                        "Customer-facing work": 2,
+                        "Working independently": 4,
+                        "Teaching/mentoring": 2,
+                        "Startup/entrepreneurship": 3,
+                        "Gaming industry": 1,
+                        "Healthcare/medical field": 3,
+                        "Finance/banking": 4,
+                        "Industrial/manufacturing": 2,
+                        "Entertainment/media": 2,
+                        "Education technology": 2,
+                        "Environmental/sustainability": 2,
+                        "Telecommunications": 2
+                    },
+                    knowledge: {
+                        "Python": 5,
+                        "JavaScript/TypeScript": 2,
+                        "Java": 3,
+                        "C#": 1,
+                        "C/C++": 2,
+                        "SQL": 5,
+                        "HTML/CSS": 1,
+                        "PHP": 1,
+                        "Swift (iOS)": 1,
+                        "Kotlin (Android)": 1,
+                        "R (Statistics)": 4,
+                        "Assembly": 1,
+                        "React/Angular/Vue": 1,
+                        "Node.js": 2,
+                        ".NET Framework": 1,
+                        "Django/Flask": 4,
+                        "Spring Boot": 1,
+                        "Unity/Unreal": 1,
+                        "TensorFlow/PyTorch": 5,
+                        "Docker/Kubernetes": 4,
+                        "Git/GitHub": 4,
+                        "Jira/PM tools": 2,
+                        "Linux/Unix": 3,
+                        "Arduino/Raspberry Pi": 1,
+                        "Algorithms & Data Structures": 5,
+                        "Object-Oriented Programming": 3,
+                        "Functional Programming": 3,
+                        "Database Design": 5,
+                        "API Design/REST": 4,
+                        "Microservices": 3,
+                        "Cloud Services (AWS/Azure/GCP)": 5,
+                        "Cybersecurity": 2,
+                        "Network Protocols": 2,
+                        "Operating Systems": 3,
+                        "Mobile Development": 1,
+                        "Web Development": 2,
+                        "UI/UX Design": 1,
+                        "Testing/QA": 3,
+                        "Agile/Scrum": 3,
+                        "System Architecture": 4,
+                        "Real-time Systems": 2,
+                        "Embedded Systems": 1,
+                        "Signal Processing": 2,
+                        "Computer Graphics": 1,
+                        "Data Visualization": 4,
+                        "Big Data Technologies": 5,
+                        "Statistics & Probability": 5,
+                        "Linear Algebra": 5,
+                        "Discrete Mathematics": 4
+                    }
+                },
+                {
+                    name: "Data Networks and Cybersecurity",
+                    subjects: {
+                        "Mathematics (General)": 4,
+                        "Calculus": 2,
+                        "Engineering Precalculus": 3,
+                        "Topics in Applied Mathematics": 3,
+                        "Measurement in Physics": 2,
+                        "Engineering Physics": 2,
+                        "Introduction to Electronics": 3,
+                        "Introduction to Programming": 4,
+                        "Databases": 2,
+                        "Git Basics": 3,
+                        "Low-Code Software Development": 1,
+                        "Introduction to IT": 4,
+                        "Project Work Basics": 3
+                    },
+                    interests: {
+                        "Working with data & analytics": 2,
+                        "Building websites/web apps": 2,
+                        "Creating mobile apps": 1,
+                        "Game design & development": 1,
+                        "Hardware/electronics": 3,
+                        "Healthcare technology": 2,
+                        "Network & security": 5,
+                        "Cloud computing": 4,
+                        "AI/Machine Learning": 2,
+                        "Internet of Things (IoT)": 4,
+                        "Robotics & automation": 2,
+                        "VR/AR": 1,
+                        "Working in teams": 4,
+                        "Leading projects": 3,
+                        "Creative/artistic work": 1,
+                        "Research & problem-solving": 5,
+                        "Customer-facing work": 2,
+                        "Working independently": 4,
+                        "Teaching/mentoring": 3,
+                        "Startup/entrepreneurship": 3,
+                        "Gaming industry": 1,
+                        "Healthcare/medical field": 3,
+                        "Finance/banking": 4,
+                        "Industrial/manufacturing": 4,
+                        "Entertainment/media": 1,
+                        "Education technology": 2,
+                        "Environmental/sustainability": 1,
+                        "Telecommunications": 5
+                    },
+                    knowledge: {
+                        "Python": 4,
+                        "JavaScript/TypeScript": 2,
+                        "Java": 2,
+                        "C#": 1,
+                        "C/C++": 4,
+                        "SQL": 3,
+                        "HTML/CSS": 1,
+                        "PHP": 1,
+                        "Swift (iOS)": 1,
+                        "Kotlin (Android)": 1,
+                        "R (Statistics)": 1,
+                        "Assembly": 4,
+                        "React/Angular/Vue": 1,
+                        "Node.js": 2,
+                        ".NET Framework": 1,
+                        "Django/Flask": 1,
+                        "Spring Boot": 1,
+                        "Unity/Unreal": 1,
+                        "TensorFlow/PyTorch": 2,
+                        "Docker/Kubernetes": 3,
+                        "Git/GitHub": 3,
+                        "Jira/PM tools": 2,
+                        "Linux/Unix": 5,
+                        "Arduino/Raspberry Pi": 2,
+                        "Algorithms & Data Structures": 3,
+                        "Object-Oriented Programming": 2,
+                        "Functional Programming": 1,
+                        "Database Design": 2,
+                        "API Design/REST": 3,
+                        "Microservices": 3,
+                        "Cloud Services (AWS/Azure/GCP)": 4,
+                        "Cybersecurity": 5,
+                        "Network Protocols": 5,
+                        "Operating Systems": 5,
+                        "Mobile Development": 2,
+                        "Web Development": 3,
+                        "UI/UX Design": 1,
+                        "Testing/QA": 4,
+                        "Agile/Scrum": 2,
+                        "System Architecture": 4,
+                        "Real-time Systems": 3,
+                        "Embedded Systems": 3,
+                        "Signal Processing": 1,
+                        "Computer Graphics": 1,
+                        "Data Visualization": 2,
+                        "Big Data Technologies": 2,
+                        "Statistics & Probability": 2,
+                        "Linear Algebra": 2,
+                        "Discrete Mathematics": 4
+                    }
+                },
+                {
+                    name: "Embedded Software and IoT",
+                    subjects: {
+                        "Mathematics (General)": 4,
+                        "Calculus": 4,
+                        "Engineering Precalculus": 4,
+                        "Topics in Applied Mathematics": 3,
+                        "Measurement in Physics": 5,
+                        "Engineering Physics": 5,
+                        "Introduction to Electronics": 5,
+                        "Introduction to Programming": 5,
+                        "Databases": 2,
+                        "Git Basics": 4,
+                        "Low-Code Software Development": 1,
+                        "Introduction to IT": 3,
+                        "Project Work Basics": 4
+                    },
+                    interests: {
+                        "Working with data & analytics": 3,
+                        "Building websites/web apps": 2,
+                        "Creating mobile apps": 3,
+                        "Game design & development": 1,
+                        "Hardware/electronics": 5,
+                        "Healthcare technology": 3,
+                        "Network & security": 3,
+                        "Cloud computing": 4,
+                        "AI/Machine Learning": 3,
+                        "Internet of Things (IoT)": 5,
+                        "Robotics & automation": 4,
+                        "VR/AR": 1,
+                        "Working in teams": 4,
+                        "Leading projects": 3,
+                        "Creative/artistic work": 2,
+                        "Research & problem-solving": 5,
+                        "Customer-facing work": 2,
+                        "Working independently": 4,
+                        "Teaching/mentoring": 2,
+                        "Startup/entrepreneurship": 4,
+                        "Gaming industry": 1,
+                        "Healthcare/medical field": 3,
+                        "Finance/banking": 1,
+                        "Industrial/manufacturing": 5,
+                        "Entertainment/media": 2,
+                        "Education technology": 2,
+                        "Environmental/sustainability": 3,
+                        "Telecommunications": 4
+                    },
+                    knowledge: {
+                        "Python": 3,
+                        "JavaScript/TypeScript": 2,
+                        "Java": 2,
+                        "C#": 2,
+                        "C/C++": 5,
+                        "SQL": 2,
+                        "HTML/CSS": 1,
+                        "PHP": 1,
+                        "Swift (iOS)": 1,
+                        "Kotlin (Android)": 2,
+                        "R (Statistics)": 1,
+                        "Assembly": 4,
+                        "React/Angular/Vue": 1,
+                        "Node.js": 2,
+                        ".NET Framework": 1,
+                        "Django/Flask": 2,
+                        "Spring Boot": 1,
+                        "Unity/Unreal": 1,
+                        "TensorFlow/PyTorch": 2,
+                        "Docker/Kubernetes": 2,
+                        "Git/GitHub": 4,
+                        "Jira/PM tools": 2,
+                        "Linux/Unix": 5,
+                        "Arduino/Raspberry Pi": 5,
+                        "Algorithms & Data Structures": 3,
+                        "Object-Oriented Programming": 3,
+                        "Functional Programming": 1,
+                        "Database Design": 1,
+                        "API Design/REST": 3,
+                        "Microservices": 1,
+                        "Cloud Services (AWS/Azure/GCP)": 4,
+                        "Cybersecurity": 4,
+                        "Network Protocols": 5,
+                        "Operating Systems": 5,
+                        "Mobile Development": 3,
+                        "Web Development": 2,
+                        "UI/UX Design": 2,
+                        "Testing/QA": 4,
+                        "Agile/Scrum": 3,
+                        "System Architecture": 4,
+                        "Real-time Systems": 5,
+                        "Embedded Systems": 5,
+                        "Signal Processing": 4,
+                        "Computer Graphics": 1,
+                        "Data Visualization": 2,
+                        "Big Data Technologies": 2,
+                        "Statistics & Probability": 2,
+                        "Linear Algebra": 3,
+                        "Discrete Mathematics": 3
+                    }
+                },
+                {
+                    name: "Game and Interactive Technologies",
+                    subjects: {
+                        "Mathematics (General)": 4,
+                        "Calculus": 3,
+                        "Engineering Precalculus": 3,
+                        "Topics in Applied Mathematics": 2,
+                        "Measurement in Physics": 3,
+                        "Engineering Physics": 3,
+                        "Introduction to Electronics": 1,
+                        "Introduction to Programming": 5,
+                        "Databases": 2,
+                        "Git Basics": 4,
+                        "Low-Code Software Development": 1,
+                        "Introduction to IT": 2,
+                        "Project Work Basics": 4
+                    },
+                    interests: {
+                        "Working with data & analytics": 2,
+                        "Building websites/web apps": 2,
+                        "Creating mobile apps": 4,
+                        "Game design & development": 5,
+                        "Hardware/electronics": 2,
+                        "Healthcare technology": 2,
+                        "Network & security": 2,
+                        "Cloud computing": 2,
+                        "AI/Machine Learning": 3,
+                        "Internet of Things (IoT)": 1,
+                        "Robotics & automation": 1,
+                        "VR/AR": 5,
+                        "Working in teams": 5,
+                        "Leading projects": 3,
+                        "Creative/artistic work": 5,
+                        "Research & problem-solving": 4,
+                        "Customer-facing work": 1,
+                        "Working independently": 3,
+                        "Teaching/mentoring": 2,
+                        "Startup/entrepreneurship": 4,
+                        "Gaming industry": 5,
+                        "Healthcare/medical field": 2,
+                        "Finance/banking": 1,
+                        "Industrial/manufacturing": 1,
+                        "Entertainment/media": 5,
+                        "Education technology": 3,
+                        "Environmental/sustainability": 1,
+                        "Telecommunications": 1
+                    },
+                    knowledge: {
+                        "Python": 2,
+                        "JavaScript/TypeScript": 3,
+                        "Java": 2,
+                        "C#": 5,
+                        "C/C++": 5,
+                        "SQL": 2,
+                        "HTML/CSS": 2,
+                        "PHP": 1,
+                        "Swift (iOS)": 2,
+                        "Kotlin (Android)": 2,
+                        "R (Statistics)": 1,
+                        "Assembly": 1,
+                        "React/Angular/Vue": 1,
+                        "Node.js": 2,
+                        ".NET Framework": 2,
+                        "Django/Flask": 1,
+                        "Spring Boot": 1,
+                        "Unity/Unreal": 5,
+                        "TensorFlow/PyTorch": 2,
+                        "Docker/Kubernetes": 1,
+                        "Git/GitHub": 5,
+                        "Jira/PM tools": 3,
+                        "Linux/Unix": 2,
+                        "Arduino/Raspberry Pi": 1,
+                        "Algorithms & Data Structures": 4,
+                        "Object-Oriented Programming": 5,
+                        "Functional Programming": 1,
+                        "Database Design": 2,
+                        "API Design/REST": 3,
+                        "Microservices": 2,
+                        "Cloud Services (AWS/Azure/GCP)": 3,
+                        "Cybersecurity": 2,
+                        "Network Protocols": 3,
+                        "Operating Systems": 2,
+                        "Mobile Development": 4,
+                        "Web Development": 3,
+                        "UI/UX Design": 5,
+                        "Testing/QA": 4,
+                        "Agile/Scrum": 4,
+                        "System Architecture": 3,
+                        "Real-time Systems": 4,
+                        "Embedded Systems": 1,
+                        "Signal Processing": 1,
+                        "Computer Graphics": 5,
+                        "Data Visualization": 2,
+                        "Big Data Technologies": 1,
+                        "Statistics & Probability": 2,
+                        "Linear Algebra": 4,
+                        "Discrete Mathematics": 3
+                    }
+                },
+                {
+                    name: "Health Technology",
+                    subjects: {
+                        "Mathematics (General)": 4,
+                        "Calculus": 3,
+                        "Engineering Precalculus": 3,
+                        "Topics in Applied Mathematics": 3,
+                        "Measurement in Physics": 4,
+                        "Engineering Physics": 4,
+                        "Introduction to Electronics": 4,
+                        "Introduction to Programming": 4,
+                        "Databases": 3,
+                        "Git Basics": 3,
+                        "Low-Code Software Development": 1,
+                        "Introduction to IT": 3,
+                        "Project Work Basics": 4
+                    },
+                    interests: {
+                        "Working with data & analytics": 4,
+                        "Building websites/web apps": 3,
+                        "Creating mobile apps": 4,
+                        "Game design & development": 1,
+                        "Hardware/electronics": 4,
+                        "Healthcare technology": 5,
+                        "Network & security": 3,
+                        "Cloud computing": 3,
+                        "AI/Machine Learning": 4,
+                        "Internet of Things (IoT)": 4,
+                        "Robotics & automation": 3,
+                        "VR/AR": 2,
+                        "Working in teams": 5,
+                        "Leading projects": 3,
+                        "Creative/artistic work": 2,
+                        "Research & problem-solving": 5,
+                        "Customer-facing work": 3,
+                        "Working independently": 3,
+                        "Teaching/mentoring": 2,
+                        "Startup/entrepreneurship": 4,
+                        "Gaming industry": 1,
+                        "Healthcare/medical field": 5,
+                        "Finance/banking": 1,
+                        "Industrial/manufacturing": 1,
+                        "Entertainment/media": 1,
+                        "Education technology": 2,
+                        "Environmental/sustainability": 1,
+                        "Telecommunications": 1
+                    },
+                    knowledge: {
+                        "Python": 4,
+                        "JavaScript/TypeScript": 3,
+                        "Java": 2,
+                        "C#": 2,
+                        "C/C++": 3,
+                        "SQL": 4,
+                        "HTML/CSS": 3,
+                        "PHP": 1,
+                        "Swift (iOS)": 3,
+                        "Kotlin (Android)": 3,
+                        "R (Statistics)": 4,
+                        "Assembly": 1,
+                        "React/Angular/Vue": 3,
+                        "Node.js": 3,
+                        ".NET Framework": 2,
+                        "Django/Flask": 3,
+                        "Spring Boot": 1,
+                        "Unity/Unreal": 2,
+                        "TensorFlow/PyTorch": 4,
+                        "Docker/Kubernetes": 2,
+                        "Git/GitHub": 4,
+                        "Jira/PM tools": 2,
+                        "Linux/Unix": 2,
+                        "Arduino/Raspberry Pi": 3,
+                        "Algorithms & Data Structures": 3,
+                        "Object-Oriented Programming": 3,
+                        "Functional Programming": 1,
+                        "Database Design": 4,
+                        "API Design/REST": 3,
+                        "Microservices": 2,
+                        "Cloud Services (AWS/Azure/GCP)": 3,
+                        "Cybersecurity": 4,
+                        "Network Protocols": 2,
+                        "Operating Systems": 2,
+                        "Mobile Development": 4,
+                        "Web Development": 3,
+                        "UI/UX Design": 4,
+                        "Testing/QA": 4,
+                        "Agile/Scrum": 3,
+                        "System Architecture": 3,
+                        "Real-time Systems": 3,
+                        "Embedded Systems": 4,
+                        "Signal Processing": 4,
+                        "Computer Graphics": 1,
+                        "Data Visualization": 4,
+                        "Big Data Technologies": 3,
+                        "Statistics & Probability": 5,
+                        "Linear Algebra": 3,
+                        "Discrete Mathematics": 2
+                    }
+                },
+                {
+                    name: "Software Engineering and Project Management",
+                    subjects: {
+                        "Mathematics (General)": 3,
+                        "Calculus": 2,
+                        "Engineering Precalculus": 2,
+                        "Topics in Applied Mathematics": 2,
+                        "Measurement in Physics": 1,
+                        "Engineering Physics": 1,
+                        "Introduction to Electronics": 1,
+                        "Introduction to Programming": 5,
+                        "Databases": 4,
+                        "Git Basics": 5,
+                        "Low-Code Software Development": 2,
+                        "Introduction to IT": 4,
+                        "Project Work Basics": 5
+                    },
+                    interests: {
+                        "Working with data & analytics": 3,
+                        "Building websites/web apps": 5,
+                        "Creating mobile apps": 4,
+                        "Game design & development": 2,
+                        "Hardware/electronics": 1,
+                        "Healthcare technology": 2,
+                        "Network & security": 3,
+                        "Cloud computing": 4,
+                        "AI/Machine Learning": 3,
+                        "Internet of Things (IoT)": 2,
+                        "Robotics & automation": 1,
+                        "VR/AR": 2,
+                        "Working in teams": 5,
+                        "Leading projects": 5,
+                        "Creative/artistic work": 3,
+                        "Research & problem-solving": 4,
+                        "Customer-facing work": 4,
+                        "Working independently": 3,
+                        "Teaching/mentoring": 3,
+                        "Startup/entrepreneurship": 4,
+                        "Gaming industry": 2,
+                        "Healthcare/medical field": 2,
+                        "Finance/banking": 3,
+                        "Industrial/manufacturing": 2,
+                        "Entertainment/media": 2,
+                        "Education technology": 3,
+                        "Environmental/sustainability": 1,
+                        "Telecommunications": 2
+                    },
+                    knowledge: {
+                        "Python": 4,
+                        "JavaScript/TypeScript": 5,
+                        "Java": 4,
+                        "C#": 4,
+                        "C/C++": 2,
+                        "SQL": 5,
+                        "HTML/CSS": 5,
+                        "PHP": 2,
+                        "Swift (iOS)": 3,
+                        "Kotlin (Android)": 3,
+                        "R (Statistics)": 1,
+                        "Assembly": 1,
+                        "React/Angular/Vue": 5,
+                        "Node.js": 4,
+                        ".NET Framework": 4,
+                        "Django/Flask": 3,
+                        "Spring Boot": 4,
+                        "Unity/Unreal": 1,
+                        "TensorFlow/PyTorch": 2,
+                        "Docker/Kubernetes": 4,
+                        "Git/GitHub": 5,
+                        "Jira/PM tools": 5,
+                        "Linux/Unix": 3,
+                        "Arduino/Raspberry Pi": 1,
+                        "Algorithms & Data Structures": 4,
+                        "Object-Oriented Programming": 5,
+                        "Functional Programming": 3,
+                        "Database Design": 5,
+                        "API Design/REST": 5,
+                        "Microservices": 4,
+                        "Cloud Services (AWS/Azure/GCP)": 4,
+                        "Cybersecurity": 3,
+                        "Network Protocols": 2,
+                        "Operating Systems": 3,
+                        "Mobile Development": 4,
+                        "Web Development": 5,
+                        "UI/UX Design": 4,
+                        "Testing/QA": 5,
+                        "Agile/Scrum": 5,
+                        "System Architecture": 5,
+                        "Real-time Systems": 2,
+                        "Embedded Systems": 1,
+                        "Signal Processing": 1,
+                        "Computer Graphics": 2,
+                        "Data Visualization": 3,
+                        "Big Data Technologies": 2,
+                        "Statistics & Probability": 2,
+                        "Linear Algebra": 2,
+                        "Discrete Mathematics": 3
+                    }
+                }
+            ];
+
+            // Calculate scores for each path with 70% weight on subjects
+            const results = paths.map(path => {
+                let subjectTotal = 0;
+                let subjectMax = 0;
+                let interestTotal = 0;
+                let interestMax = 0;
+                let knowledgeTotal = 0;
+                let knowledgeMax = 0;
+
+                // Calculate subject score (70% of final decision)
+                for (const [subject, weight] of Object.entries(path.subjects)) {
+                    const studentGrade = studentData.subjects[subject] || 3;
+                    subjectTotal += studentGrade * weight;
+                    subjectMax += 5 * weight;
+                }
+
+                // Calculate interest score (15% of final decision)
+                for (const [interest, weight] of Object.entries(path.interests)) {
+                    const studentRating = studentData.interests[interest] || 3;
+                    interestTotal += studentRating * weight;
+                    interestMax += 5 * weight;
+                }
+
+                // Calculate knowledge score (15% of final decision)
+                for (const [skill, weight] of Object.entries(path.knowledge)) {
+                    const studentRating = studentData.knowledge[skill] || 3;
+                    knowledgeTotal += studentRating * weight;
+                    knowledgeMax += 5 * weight;
+                }
+
+                // Calculate percentages
+                const subjectPercent = (subjectTotal / subjectMax) * 100;
+                const interestPercent = (interestTotal / interestMax) * 100;
+                const knowledgePercent = (knowledgeTotal / knowledgeMax) * 100;
+
+                // NEW WEIGHTS: 70% subjects, 15% interests, 15% knowledge
+                const totalScore = (subjectPercent * 0.7) + (interestPercent * 0.15) + (knowledgePercent * 0.15);
+
+                return {
+                    name: path.name,
+                    total: Math.round(totalScore),
+                    subjects: Math.round(subjectPercent),
+                    interests: Math.round(interestPercent),
+                    knowledge: Math.round(knowledgePercent)
+                };
+            });
+
+            // Sort by total score descending
+            results.sort((a, b) => b.total - a.total);
+
+            // Display results
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            const resultsSection = document.getElementById('results-section');
+            const resultsContainer = document.getElementById('results-container');
+            
+            resultsContainer.innerHTML = '';
+            
+            results.forEach((result, index) => {
+                let matchClass = '';
+                if (result.total >= 70) matchClass = 'high-match';
+                else if (result.total >= 50) matchClass = 'medium-match';
+                else matchClass = 'low-match';
+
+                const card = document.createElement('div');
+                card.className = `result-card ${matchClass}`;
+                
+                card.innerHTML = `
+                    <div class="path-name">${index + 1}. ${result.name}</div>
+                    <div class="match-percentage">${result.total}% Match</div>
+                    <div class="breakdown">
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">📚 Subjects (70% weight)</span>
+                            <span class="breakdown-value">${result.subjects}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${result.subjects}%; background: #ff6b6b;"></div>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">💡 Interests (15% weight)</span>
+                            <span class="breakdown-value">${result.interests}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${result.interests}%; background: #48c774;"></div>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">🔧 Knowledge (15% weight)</span>
+                            <span class="breakdown-value">${result.knowledge}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${result.knowledge}%; background: #fdcb6e;"></div>
+                        </div>
+                    </div>
+                `;
+                
+                resultsContainer.appendChild(card);
+            });
+
+            resultsSection.style.display = 'block';
+            
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            initializeInputs();
+        };
+    </script>
+</body>
+</html>
