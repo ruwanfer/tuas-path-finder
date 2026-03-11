@@ -6,7 +6,7 @@
 ![Status](https://img.shields.io/badge/status-stable-green)
 ![TUAS](https://img.shields.io/badge/TUAS-ICT%20Student%20Tool-orange)
 
-## 📌 About The Project
+##  About The Project
 
 This tool helps first-year ICT students at **Turku University of Applied Sciences** choose their competence path for years 2-4. Based on your:
 
@@ -16,7 +16,7 @@ This tool helps first-year ICT students at **Turku University of Applied Science
 
 The algorithm analyzes your profile and suggests which of the six competence paths best matches your strengths and interests.
 
-### 🎯 The Six Competence Paths
+###  The Six Competence Paths
 
 | Path | Focus Area |
 |------|------------|
@@ -29,7 +29,7 @@ The algorithm analyzes your profile and suggests which of the six competence pat
 
 ---
 
-## ✨ Features
+##  Features
 
 - ✅ **TUAS-specific** - Uses actual first-year curriculum subjects
 - ✅ **70% grade-based** - Recommendations heavily weighted by your academic performance
@@ -40,13 +40,13 @@ The algorithm analyzes your profile and suggests which of the six competence pat
 
 ---
 
-## 🚀 Live Demo
+##  Live Demo
 
 **Try it here:** https://github.com/ruwanfer/tuas-path-finder
 
 ---
 
-## 📋 How to Use
+##  How to Use
 
 ### For Students (Using the Tool)
 
@@ -76,7 +76,7 @@ The algorithm analyzes your profile and suggests which of the six competence pat
 
 ---
 
-## 🛠️ For Developers
+##  For Developers
 
 ### Project Structure
 ```
@@ -115,7 +115,7 @@ Each competence path has pre-configured **importance weights** for every subject
 
 ---
 
-## 📊 Data Sources
+##  Data Sources
 
 The subject list is based on the actual **TUAS ICT first-year curriculum**:
 
@@ -135,7 +135,7 @@ The subject list is based on the actual **TUAS ICT first-year curriculum**:
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Found a bug? Have a suggestion? Want to improve the weightings?
 
@@ -149,7 +149,7 @@ Or simply **open an issue** with your feedback!
 
 ---
 
-## 📝 License
+##  License
 
 This project is created for educational purposes at **Turku University of Applied Sciences**. Feel free to use, modify, and share with fellow students.
 
@@ -157,18 +157,18 @@ This project is created for educational purposes at **Turku University of Applie
 
 ---
 
-## 📬 Contact
+##  Contact
 
 **Created by:** [Ruwan Gammanage]
-- 📧 Email: ruwan.gammanage@edu.turkuamk.fi
-- 🎓 Student: ICT Engineering, Turku University of Applied Sciences
-- 🔗 GitHub: [@ruwanfer](https://github.com/ruwanfer)
+-  Email: ruwan.gammanage@edu.turkuamk.fi
+-  Student: ICT Engineering, Turku University of Applied Sciences
+-  GitHub: [@ruwanfer](https://github.com/ruwanfer)
 
 **Project Link:** https://github.com/ruwanfer/tuas-path-finder
 
 ---
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - **TUAS ICT Teachers** - For curriculum guidance
 - **Senior Students** - For validating path weightings
