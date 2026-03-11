@@ -165,6 +165,7 @@ This project is created for educational purposes at **Turku University of Applie
 -  GitHub: [@ruwanfer](https://github.com/ruwanfer)
 
 **Project Repository:** [https://github.com/ruwanfer/tuas-path-finder](https://github.com/ruwanfer/tuas-path-finder)
+
 **Live Website:** [https://ruwanfer.github.io/tuas-path-finder](https://ruwanfer.github.io/tuas-path-finder)
 
 ---
