@@ -135,20 +135,6 @@ The subject list is based on the actual **TUAS ICT first-year curriculum**:
 
 ---
 
-##  Contributing
-
-Found a bug? Have a suggestion? Want to improve the weightings?
-
-1. **Fork the repository**
-2. Create your feature branch: `git checkout -b feature/YourImprovement`
-3. Commit your changes: `git commit -m 'Add some improvement'`
-4. Push to the branch: `git push origin feature/YourImprovement`
-5. Open a Pull Request
-
-Or simply **open an issue** with your feedback!
-
----
-
 ##  License
 
 This project is created for educational purposes at **Turku University of Applied Sciences**. Feel free to use, modify, and share with fellow students.
