@@ -42,7 +42,7 @@ The algorithm analyzes your profile and suggests which of the six competence pat
 
 ##  Live Demo
 
-**Try it here:** https://github.com/ruwanfer/tuas-path-finder
+**Try it here:** [https://ruwanfer.github.io/tuas-path-finder](https://ruwanfer.github.io/tuas-path-finder)
 
 ---
 
@@ -164,7 +164,7 @@ This project is created for educational purposes at **Turku University of Applie
 -  Student: ICT Engineering, Turku University of Applied Sciences
 -  GitHub: [@ruwanfer](https://github.com/ruwanfer)
 
-**Project Link:** https://github.com/ruwanfer/tuas-path-finder
+**Project Link:** [https://github.com/ruwanfer/tuas-path-finder](https://github.com/ruwanfer/tuas-path-finder)
 
 ---
 
